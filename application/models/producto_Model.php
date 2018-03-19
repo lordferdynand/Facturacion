@@ -45,4 +45,25 @@ class producto_Model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function findProductByDesc($desc){
+        $this->db->select('id,nombre,precio');
+        $this->db->from('producto');
+        $this->db->like('nombre',$desc);
+
+        $query = $this->db->get();
+
+        $search_data = array();
+        foreach ($query->result() as $row){
+            $search_data[]= array(
+                'value' => $row->nombre,
+                'id' => $row->id,
+                'precio' => $row->precio,
+
+            );
+
+        }
+
+        return $search_data;
+    }
+
 }

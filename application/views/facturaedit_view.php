@@ -3,32 +3,33 @@
         <div class="form-group row">
             <label for="nit" class="col-md-1 control-label">Nit</label>
             <div class="col-md-3">
-                <input type="text" class="form-control input-sm" id="nit" placeholder="Seleccione un Nit" required>
-                <input id="id_cliente" type='hidden'>
+                <input type="text" class="form-control input-sm" id="nit" placeholder="Seleccione un Nit" value="<?php echo $cabecera[0]['primernombre']; ?>">
+                <input id="id_cliente" type='hidden' value="<?php echo $cabecera[0]['cliente_id']; ?>">
             </div>
             <label for="tel1" class="col-md-1 control-label">Teléfono</label>
             <div class="col-md-2">
-                <input type="text" class="form-control input-sm" id="tel1" placeholder="Teléfono" readonly>
+                <input type="text" class="form-control input-sm" id="tel1" placeholder="Teléfono" readonly value="<?php echo $cabecera[0]['telefono']; ?>">
             </div>
             <label for="mail" class="col-md-1 control-label">Email</label>
             <div class="col-md-3">
-                <input type="text" class="form-control input-sm" id="mail" placeholder="Email" readonly>
+                <input type="text" class="form-control input-sm" id="mail" placeholder="Email" readonly value="<?php echo $cabecera[0]['email']; ?>">
             </div>
         </div>
 
         <div class="form-group row">
             <label for="nombre_cliente" class="col-md-1 control-label">Cliente</label>
             <div class="col-md-3">
-                <input type="text" class="form-control input-sm" id="nombre_cliente" placeholder="Selecciona un cliente" readonly>
+                <input type="text" class="form-control input-sm" id="nombre_cliente" placeholder="Selecciona un cliente" readonly value="<?php echo $cabecera[0]['primernombre']; ?>">
                 <input id="id_cliente" type='hidden'>
             </div>
             <label for="nombre_cliente" class="col-md-1 control-label">nombre2</label>
             <div class="col-md-2">
-                <input type="text" class="form-control input-sm" id="nombre_cliente2" placeholder="Nombre2" readonly>
+                <input type="text" class="form-control input-sm" id="nombre_cliente2" placeholder="Nombre2" readonly value="<?php echo $cabecera[0]['segundonombre']; ?>">
             </div>
             <label for="direccion" class="col-md-1 control-label">Direccion</label>
             <div class="col-md-3">
-                <input type="text" class="form-control input-sm" id="direccion" placeholder="direccion" readonly>
+                <input type="text" class="form-control input-sm" id="direccion" placeholder="direccion" readonly value="<?php echo $cabecera[0]['direccion']; ?>">
+                <input type="hidden" id="documentoCab_id" value="<?php echo $cabecera[0]['id']; ?>">
             </div>
         </div>
 
@@ -36,26 +37,11 @@
             <label for="empresa" class="col-md-1 control-label">Vendedor</label>
             <div class="col-md-3">
                 <select class="form-control input-sm" id="id_vendedor">
-                    <?php
-                    $sql_vendedor=mysqli_query($con,"select * from users order by lastname");
-                    while ($rw=mysqli_fetch_array($sql_vendedor)){
-                        $id_vendedor=$rw["user_id"];
-                        $nombre_vendedor=$rw["firstname"]." ".$rw["lastname"];
-                        if ($id_vendedor==$_SESSION['user_id']){
-                            $selected="selected";
-                        } else {
-                            $selected="";
-                        }
-                        ?>
-                        <option value="<?php echo $id_vendedor?>" <?php echo $selected;?>><?php echo $nombre_vendedor?></option>
-                        <?php
-                    }
-                    ?>
                 </select>
             </div>
             <label for="tel2" class="col-md-1 control-label">Fecha</label>
             <div class="col-md-2">
-                <input type="text" class="form-control input-sm" id="fechafac" value="<?php echo date("d/m/Y");?>" readonly>
+                <input type="text" class="form-control input-sm" id="fechafac" readonly value="<?php echo $cabecera[0]['fecha']; ?>">
             </div>
             <label for="email" class="col-md-1 control-label">Pago</label>
             <div class="col-md-3">
@@ -77,13 +63,12 @@
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#nuevoCliente">
                     <span class="glyphicon glyphicon-user"></span> Nuevo cliente
                 </button>
-                <button type="button" class="btn btn-default" data-toggle="modal" onclick="grabaCabeceraFactura()" data-target="#myModalBuscarProductos">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalBuscarProductos">
                     <span class="glyphicon glyphicon-search"></span> Agregar productos
                 </button>
-                <a href="<?php echo base_url(); ?>Factura/generar_reporte" ><span class="glyphicon glyphicon-print"></span>Imprimir</a>
-                <!--<button type="submit" class="btn btn-default" id="generarReporte">
-                    <span class="glyphicon glyphicon-print"></span>Imprimir
-                </button>-->
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-print"></span> Imprimir
+                </button>
             </div>
         </div>
     </form>
@@ -104,6 +89,18 @@
             </tr>
             </thead>
             <tbody>
+                <?php foreach ($detalle as $item) { ?>
+                    <tr>
+                        <td><?php echo $item['producto_id']; ?></td>
+                        <td><?php echo $item['nombre']; ?></td>
+                        <td><?php echo $item['precio']; ?></td>
+                        <td><?php echo $item['cantidad']; ?></td>
+                        <td><?php echo $item['total']; ?></td>
+                        <td><a href="<?php echo base_url(); ?>Factura/eliminardetalle_factura/<?php echo $item['producto_id']; ?>"><i class="glyphicon glyphicon-remove"></i></td>
+                    </tr>
+
+
+                <?php }?>
             </tbody>
             <tfoot>
                 <tr>
@@ -169,4 +166,3 @@
 
 
 </div>
-<input type="hidden" id="documentoCab_id">

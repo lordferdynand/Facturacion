@@ -45,4 +45,30 @@ class cliente_Model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function findClienteByNit($nit){
+        $this->db->select('id,nit, primernombre,segundonombre,telefono,email,direccion');
+        $this->db->from('cliente');
+        $this->db->like('nit',$nit);
+
+        $query = $this->db->get();
+
+        $arr_cliente = array();
+
+        foreach ($query->result() as $row){
+            $arr_cliente[] = array(
+                'value' => $row->primernombre.' '.$row->segundonombre,
+                'primernombre' => $row->primernombre,
+                'nit' => $row->nit,
+                'segundonombre' => $row->segundonombre,
+                'telefono' => $row->telefono,
+                'email' => $row->email,
+                'direccion' => $row->direccion,
+                'id' => $row->id,
+            );
+        }
+
+        return $arr_cliente;
+
+    }
+
 }

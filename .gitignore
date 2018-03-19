@@ -20,7 +20,9 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 #-------------------------
 /nbproject/
 .idea/*
-
+application/third_party/fpdf181/
+assets/imagenes/
+Favicon.ico
 ## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache

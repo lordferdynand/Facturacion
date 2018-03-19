@@ -48,10 +48,11 @@
     <table id="table_id" class="table table-stripe table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th>Producto</th>
+            <th>Id</th>
             <th>Nombre</th>
-            <th>Precio</th>
-            <th>Costo</th>
+            <th>Fecha</th>
+            <th>Iva</th>
+            <th>Total</th>
             <th>Observacion</th>
             <th style="width:125px;">Action </p></th>
         </tr>
@@ -59,14 +60,15 @@
         <tbody>
         <?php foreach ($facturas as $factura){?>
             <tr>
-                <td><?php echo $factura->id;?></td>
-                <td><?php echo $factura->nombre;?></td>
-                <td><?php echo $factura->precio;?></td>
-                <td><?php echo $factura->costo;?></td>
-                <td><?php echo $factura->observacion;?></td>
+                <td><?php echo $factura['id']; ?></td>
+                <td><?php echo $factura['nombre']; ?></td>
+                <td><?php echo $factura['fecha']; ?></td>
+                <td><?php echo $factura['iva']; ?></td>
+                <td><?php echo $factura['total']; ?></td>
+                <td><?php echo $factura['observacion']; ?></td>
                 <td>
-                    <button class="btn btn-warning" onclick="modificar_producto(<?php echo $producto->id; ?>)"><i class="glyphicon glyphicon-pencil"></i> </button>
-                    <button class="btn btn-warning" onclick="eliminar_producto(<?php echo $producto->id; ?>)"><i class="glyphicon glyphicon-remove"></i> </button>
+                    <a href="<?php echo base_url(); ?>Factura/editar_factura/<?php echo $factura['id']; ?>"><i class="glyphicon glyphicon-pencil" ></i></a>
+                    <a href="<?php echo base_url(); ?>Factura/eliminar_factura/<?php echo $factura['id']; ?>"><i class="glyphicon glyphicon-remove"></i>
                 </td>
             </tr>
         <?php } ?>
