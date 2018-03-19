@@ -92,7 +92,6 @@ class Factura extends CI_Controller
             $id_cabecera = $this->factura_Model->modificaCabecera($arr_dataCab,$data[0]);
         }
 
-
         $ret_status = array('status' => 'OK','id_cab'=>$id_cabecera);
 
         header("Content-Type: application/json");

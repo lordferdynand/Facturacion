@@ -26,8 +26,8 @@ class factura_Model extends CI_Model
     }
 
     public function modificaCabecera($arrdataCab,$id){
-        $this->db->update('movimientoCab',$arrdataCab);
         $this->db->where('id',$id);
+        $this->db->update('movimientoCab',$arrdataCab);
 
         return $id;
     }
